@@ -6,12 +6,12 @@
     <item
         android:id="@+id/navigation_scene"
         android:icon="@drawable/menu_search"
-        android:title="@string/title_link"
-        app:showAsAction="always"/>
+        android:title="@string/tooltip_search"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/navigation_join"
         app:showAsAction="always"
         android:icon="@drawable/menu_scan"
-        android:title="@string/title_resource" />
+        android:title="@string/tooltip_scan" />
 
 </menu>
