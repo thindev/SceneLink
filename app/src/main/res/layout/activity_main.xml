@@ -12,7 +12,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#eeeeee"
+        android:background="@color/splitLineColor"
         />
     <FrameLayout
         android:id="@+id/content"
@@ -24,7 +24,7 @@
 <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="#eeeeee"
+    android:background="@color/splitLineColor"
     />
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"

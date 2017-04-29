@@ -1,5 +1,7 @@
 package com.calenstudio.scenelink;
 
+import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 
 import android.view.Menu;
+
+import android.view.MenuItem;
 import android.widget.TextView;
 
 
@@ -25,6 +29,9 @@ import com.calenstudio.scenelink.view.mainpage.FindFragment;
 import com.calenstudio.scenelink.view.mainpage.LinkFragment;
 import com.calenstudio.scenelink.view.mainpage.MyFragment;
 import com.calenstudio.scenelink.view.mainpage.ResourcesFragment;
+
+
+import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +66,21 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.options_item_scan:
+                return true;
+            case R.id.options_item_search:
+                Intent searchIntent=new Intent(this, SearchLinkedSceneActivity.class);
+                this.startActivity(searchIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void initActionBar() {
         mActionBar = (Toolbar) findViewById(R.id.toolbar_main);

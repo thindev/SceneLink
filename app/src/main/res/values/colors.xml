@@ -10,4 +10,5 @@
     <color name="toolBarBackground">#fff</color>
     <color name="toolBarMenuColor">#666</color>
     <color name="toolBarTitleColor">#222</color>
+    <color name="splitLineColor">#eee</color>
 </resources>
