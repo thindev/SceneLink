@@ -2,21 +2,46 @@ package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.util.TypedValue;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.animation.Animation;
+
+import android.view.animation.AnimationUtils;
+
+
+import android.widget.FrameLayout;
+
+import android.widget.LinearLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+
+
+import android.widget.ViewSwitcher;
 
 import com.calenstudio.scenelink.R;
 
 import com.calenstudio.scenelink.bean.SceneInfo;
 import com.calenstudio.scenelink.model.LinkedScenesManager;
+
+
+import com.flaviofaria.kenburnsview.KenBurnsView;
+
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,13 +71,13 @@ public class LinkFragment extends Fragment {
     private LinkedScenesManager mLinkedScenesManager;
     private LinkedScenesAdapter mLinkedScenesAdapter;
     private Unbinder mUnbinder;
-
+    private boolean mIsFetched;
     public LinkFragment() {
         mLinkedScenesManager = new LinkedScenesManager();
         mLinkedScenesManager.setScenesManageEventHandler(new LinkedScenesManager.ScenesManageEventHandler() {
             @Override
             public void onStartedFetchingScenes() {
-
+                mSwipeRefreshLayout.setRefreshing(true);
             }
 
             @Override
@@ -109,6 +134,7 @@ public class LinkFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_link, container, false);
         mUnbinder= ButterKnife.bind(this, view);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -122,7 +148,11 @@ public class LinkFragment extends Fragment {
         mRvLinkedSceneList.setLayoutManager(linearLayoutManager);
         mRvLinkedSceneList.setAdapter(mLinkedScenesAdapter);
         mRvLinkedSceneList.setItemAnimator(new DefaultItemAnimator());
-        mRvLinkedSceneList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        // mRvLinkedSceneList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        if(!mIsFetched) {
+            mIsFetched=true;
+            mLinkedScenesManager.FetchSceneAsync();
+        }
         return view;
     }
 
@@ -187,15 +217,60 @@ public class LinkFragment extends Fragment {
 
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            @BindView(R.id.tv_scene_name)
-            TextView mTvSceneName;
+            SceneInfo mSceneInfo;
+            boolean mIsSceneNameShowed;
+            @BindView(R.id.ts_scene_name_time)
+            TextSwitcher mTsSceneNameTime;
+            @BindView(R.id.image_scene_snapshot)
+            KenBurnsView mKenBurnsView;
             public ViewHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this,itemView);
+                mTsSceneNameTime.setFactory(new ViewSwitcher.ViewFactory() {
+                    @Override
+                    public View makeView() {
+                        TextView textView = new TextView(getContext());
+                        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size_scene_name));
+                        textView.setTextColor(getResources().getColor(R.color.colorLight));
+                        TextSwitcher.LayoutParams lp=new TextSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        lp.gravity= Gravity.CENTER_VERTICAL;
+                        textView.setLayoutParams(lp);
+                        return textView;
+                    };
+                }  );
+               mTsSceneNameTime.setInAnimation(getContext(),R.anim.slide_in_bottom);
+                mTsSceneNameTime.setOutAnimation(getContext(),R.anim.slide_out_up);
+                final Handler handler = new Handler();
+                int max=10000;
+                int min=1000;
+                Random random = new Random();
+                int delay = random.nextInt(max)%(max-min+1) + min;
+                handler.postDelayed(new Runnable() {
+                    private java.text.DateFormat format = new java.text.SimpleDateFormat("MM月dd日HH:mm");
+                    @Override
+                    public void run() {
+                        if(mSceneInfo!=null) {
+                            if (!mIsSceneNameShowed){
+                                mTsSceneNameTime.setText(mSceneInfo.getName());
+                                mIsSceneNameShowed=true;
+                            }
+                            else
+                            {
+                                mTsSceneNameTime.setText(String.format("%s-%s",format.format( mSceneInfo.getBeginTime()),format.format(mSceneInfo.getEndTime())));
+                                mIsSceneNameShowed=false;
+                            }
+                        }
+                        handler.postDelayed(this, 10000);
+                    }
+                }, delay);
+
             }
             public void Bind(SceneInfo sceneInfo)
             {
-                mTvSceneName.setText(sceneInfo.getName());
+                mSceneInfo=sceneInfo;
+                mTsSceneNameTime.setText(sceneInfo.getName());
+                mIsSceneNameShowed=true;
+                mKenBurnsView.setImageResource(sceneInfo.getImg());
             }
         }
 

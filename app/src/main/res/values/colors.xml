@@ -2,13 +2,15 @@
 <resources>
     <color name="colorPrimary">#333</color>
     <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#e53f02</color>
+    <color name="colorAccent">#ba026d</color>
     <color name="itemIconTint">#FF0033</color>
     <color name="itemIconInactiveColor">#888888</color>
     <color name="actionBarBackground">#fff</color>
     <color name="background_material_light">#ffffff</color>
-    <color name="toolBarBackground">#fff</color>
-    <color name="toolBarMenuColor">#666</color>
-    <color name="toolBarTitleColor">#222</color>
-    <color name="splitLineColor">#eee</color>
+    <color name="toolBarBackground">#ba026d</color>
+    <color name="navigationBarBackground">#f8f8f8</color>
+    <color name="toolBarMenuColor">#fff</color>
+    <color name="toolBarTitleColor">#fff</color>
+    <color name="splitLineColor">#dfdfdf</color>
+    <color name="colorLight">#fff</color>
 </resources>

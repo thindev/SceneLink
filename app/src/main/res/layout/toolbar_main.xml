@@ -3,9 +3,9 @@
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                    android:id="@+id/toolbar_main"
                                    android:layout_width="match_parent"
-                                   android:layout_height="?attr/actionBarSize"
+                                   android:layout_height="@dimen/toolbar_height"
                                    android:background="@color/toolBarBackground"
-                                   android:minHeight="?attr/actionBarSize"
+                                   android:minHeight="@dimen/toolbar_height"
                                    app:title="现连"
                                    app:titleTextAppearance="@style/Toolbar.TitleText">
 </android.support.v7.widget.Toolbar>

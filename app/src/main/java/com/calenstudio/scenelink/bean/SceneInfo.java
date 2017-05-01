@@ -14,6 +14,17 @@ public class SceneInfo {
     private Date mBeginTime;
     private Date mEndTime;
 
+
+    public int getImg() {
+        return mImg;
+    }
+
+    public void setImg(int img) {
+        mImg = img;
+    }
+
+    private int mImg;
+
     public String getId() {
         return mId;
     }

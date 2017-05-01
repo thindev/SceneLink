@@ -1,11 +1,15 @@
 package com.calenstudio.scenelink.model;
 
 
+import com.calenstudio.scenelink.R;
+
 import com.calenstudio.scenelink.bean.SceneInfo;
 
 
 
 import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,11 +53,24 @@ public class LinkedScenesManager {
                         Thread.sleep(1000);
                         SceneInfo si=new SceneInfo();
                         si.setId(UUID.randomUUID().toString());
+                        si.setImg(R.drawable.aa);
+                        si.setBeginTime(new Date());
+                        si.setEndTime(new Date());
                         si.setName("2017学校环境学院迎新联欢晚会");
                         mSceneInfos.add(si);
                         si=new SceneInfo();
                         si.setId(UUID.randomUUID().toString());
+                        si.setImg(R.drawable.bb);
+                        si.setBeginTime(new Date());
+                        si.setEndTime(new Date());
                         si.setName("2017第一季度苹果电子产品新品发现会");
+                        mSceneInfos.add(si);
+                        si=new SceneInfo();
+                        si.setId(UUID.randomUUID().toString());
+                        si.setImg(R.drawable.cc);
+                        si.setBeginTime(new Date());
+                        si.setEndTime(new Date());
+                        si.setName("学成教育春季家庭户外亲子活动");
                         mSceneInfos.add(si);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
