@@ -70,7 +70,7 @@ public class LinkedScenesManager {
                         si.setImg(R.drawable.cc);
                         si.setBeginTime(new Date());
                         si.setEndTime(new Date());
-                        si.setName("学成教育春季家庭户外亲子活动");
+                        si.setName("学成教育春季集体春游户外徙步活动");
                         mSceneInfos.add(si);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

@@ -2,12 +2,10 @@ package com.calenstudio.scenelink;
 
 import android.content.Intent;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import android.view.MenuItem;
-import android.widget.TextView;
 
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -34,7 +31,6 @@ import com.calenstudio.scenelink.view.mainpage.ResourcesFragment;
 import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements FindFragment.OnFragmentInteractionListener
@@ -149,11 +145,11 @@ public class MainActivity extends AppCompatActivity
                     .beginTransaction();
             if(mLastSelectPosition>position)
             {
-                ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                ft.setCustomAnimations(R.anim.slide_in_left_scene_snapshot, R.anim.slide_out_right_scene_snapshot);
             }
             else
             {
-                 ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                 ft.setCustomAnimations(R.anim.slide_in_right_scene_snapshot, R.anim.slide_out_left_scene_snapshot);
             }
 
 

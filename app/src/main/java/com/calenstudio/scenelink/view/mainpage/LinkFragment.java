@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 
@@ -18,14 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.animation.Animation;
 
-import android.view.animation.AnimationUtils;
-
-
-import android.widget.FrameLayout;
-
-import android.widget.LinearLayout;
+import android.widget.ImageSwitcher;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
@@ -221,8 +216,8 @@ public class LinkFragment extends Fragment {
             boolean mIsSceneNameShowed;
             @BindView(R.id.ts_scene_name_time)
             TextSwitcher mTsSceneNameTime;
-            @BindView(R.id.image_scene_snapshot)
-            KenBurnsView mKenBurnsView;
+            @BindView(R.id.img_switcher_scene_snapshot)
+            ImageSwitcher mImageSwitcher;
             public ViewHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this,itemView);
@@ -231,38 +226,48 @@ public class LinkFragment extends Fragment {
                     public View makeView() {
                         TextView textView = new TextView(getContext());
                         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size_scene_name));
-                        textView.setTextColor(getResources().getColor(R.color.colorLight));
+                        textView.setTextColor(ContextCompat.getColor(getContext(),R.color.colorLight));
                         TextSwitcher.LayoutParams lp=new TextSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                         lp.gravity= Gravity.CENTER_VERTICAL;
                         textView.setLayoutParams(lp);
                         return textView;
                     };
                 }  );
-               mTsSceneNameTime.setInAnimation(getContext(),R.anim.slide_in_bottom);
-                mTsSceneNameTime.setOutAnimation(getContext(),R.anim.slide_out_up);
-                final Handler handler = new Handler();
-                int max=10000;
-                int min=1000;
-                Random random = new Random();
-                int delay = random.nextInt(max)%(max-min+1) + min;
-                handler.postDelayed(new Runnable() {
-                    private java.text.DateFormat format = new java.text.SimpleDateFormat("MM月dd日HH:mm");
+                mImageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
                     @Override
-                    public void run() {
-                        if(mSceneInfo!=null) {
-                            if (!mIsSceneNameShowed){
-                                mTsSceneNameTime.setText(mSceneInfo.getName());
-                                mIsSceneNameShowed=true;
-                            }
-                            else
-                            {
-                                mTsSceneNameTime.setText(String.format("%s-%s",format.format( mSceneInfo.getBeginTime()),format.format(mSceneInfo.getEndTime())));
-                                mIsSceneNameShowed=false;
-                            }
-                        }
-                        handler.postDelayed(this, 10000);
+                    public View makeView() {
+                        KenBurnsView kbv=new KenBurnsView(getContext());
+                        kbv.setLayoutParams(new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        return kbv;
                     }
-                }, delay);
+                });
+                mImageSwitcher.setInAnimation(getContext(),R.anim.fade_in_scene_snapshot);
+                mImageSwitcher.setOutAnimation(getContext(),R.anim.fade_out_scene_snapshot);
+               mTsSceneNameTime.setInAnimation(getContext(),R.anim.slide_in_bottom_scene_title);
+                mTsSceneNameTime.setOutAnimation(getContext(),R.anim.slide_out_up_scene_title);
+//                final Handler handler = new Handler();
+//                int max=10000;
+//                int min=1000;
+//                Random random = new Random();
+//                int delay = random.nextInt(max)%(max-min+1) + min;
+//                handler.postDelayed(new Runnable() {
+//                    private java.text.DateFormat format = new java.text.SimpleDateFormat("MM月dd日HH:mm");
+//                    @Override
+//                    public void run() {
+//                        if(mSceneInfo!=null) {
+//                            if (!mIsSceneNameShowed){
+//                                mTsSceneNameTime.setText(mSceneInfo.getName());
+//                                mIsSceneNameShowed=true;
+//                            }
+//                            else
+//                            {
+//                                mTsSceneNameTime.setText(String.format("%s-%s",format.format( mSceneInfo.getBeginTime()),format.format(mSceneInfo.getEndTime())));
+//                                mIsSceneNameShowed=false;
+//                            }
+//                        }
+//                        handler.postDelayed(this, 10000);
+//                    }
+//                }, delay);
 
             }
             public void Bind(SceneInfo sceneInfo)
@@ -270,8 +275,9 @@ public class LinkFragment extends Fragment {
                 mSceneInfo=sceneInfo;
                 mTsSceneNameTime.setText(sceneInfo.getName());
                 mIsSceneNameShowed=true;
-                mKenBurnsView.setImageResource(sceneInfo.getImg());
+                mImageSwitcher.setImageResource(sceneInfo.getImg());
             }
+
         }
 
 
