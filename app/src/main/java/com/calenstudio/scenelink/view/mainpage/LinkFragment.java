@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 
+
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -143,7 +145,9 @@ public class LinkFragment extends Fragment {
         mRvLinkedSceneList.setLayoutManager(linearLayoutManager);
         mRvLinkedSceneList.setAdapter(mLinkedScenesAdapter);
         mRvLinkedSceneList.setItemAnimator(new DefaultItemAnimator());
-        // mRvLinkedSceneList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+       DividerItemDecoration did= new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+       did.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.list_divider));
+        mRvLinkedSceneList.addItemDecoration(did);
         if(!mIsFetched) {
             mIsFetched=true;
             mLinkedScenesManager.FetchSceneAsync();

@@ -7,10 +7,10 @@
     <color name="itemIconInactiveColor">#888888</color>
     <color name="actionBarBackground">#fff</color>
     <color name="background_material_light">#ffffff</color>
-    <color name="toolBarBackground">#222</color>
-    <color name="navigationBarBackground">#f8f8f8</color>
-    <color name="toolBarMenuColor">#fff</color>
-    <color name="toolBarTitleColor">#fff</color>
-    <color name="splitLineColor">#dfdfdf</color>
+    <color name="toolBarBackground">#fefefe</color>
+    <color name="navigationBarBackground">#fefefe</color>
+    <color name="toolBarMenuColor">#444</color>
+    <color name="toolBarTitleColor">#111</color>
+    <color name="splitLineColor">#d0d0d0</color>
     <color name="colorLight">#fff</color>
 </resources>
