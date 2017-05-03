@@ -2,32 +2,33 @@ package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.calenstudio.scenelink.R;
+import com.calenstudio.scenelink.model.DiscoverScenesManager;
 import com.calenstudio.scenelink.view.basic.SlidingTabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FindFragment.OnFragmentInteractionListener} interface
+ * {@link DiscoverFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FindFragment#newInstance} factory method to
+ * Use the {@link DiscoverFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FindFragment extends Fragment {
+public class DiscoverFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,7 +40,7 @@ public class FindFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     static final String LOG_TAG = "SlidingTabsBasicFragment";
-
+    private final DiscoverScenesManager mDiscoverScenesManager;
     /**
      * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
      * above, but is designed to give continuous feedback to the user when scrolling.
@@ -50,8 +51,9 @@ public class FindFragment extends Fragment {
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
-    public FindFragment() {
+    public DiscoverFragment() {
         // Required empty public constructor
+        mDiscoverScenesManager=new DiscoverScenesManager();
     }
 
     /**
@@ -60,11 +62,11 @@ public class FindFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FindFragment.
+     * @return A new instance of fragment DiscoverFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FindFragment newInstance(String param1, String param2) {
-        FindFragment fragment = new FindFragment();
+    public static DiscoverFragment newInstance(String param1, String param2) {
+        DiscoverFragment fragment = new DiscoverFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -85,14 +87,14 @@ public class FindFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find, container, false);
+        return inflater.inflate(R.layout.fragment_discover, container, false);
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set its PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_find);
-        mViewPager.setAdapter(new FindFragment.SamplePagerAdapter());
+        mViewPager.setAdapter(new DiscoverFragment.SamplePagerAdapter());
         // END_INCLUDE (setup_viewpager)
         // BEGIN_INCLUDE (setup_slidingtablayout)
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
@@ -114,13 +116,13 @@ public class FindFragment extends Fragment {
                 return ContextCompat.getColor(getContext(),R.color.itemIconInactiveColor);
             }
         });
-        mSlidingTabLayout.setCustomTabView(R.layout.tab_title_find,R.id.txt_title);
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_title_scene_category,R.id.txt_title);
         mSlidingTabLayout.setViewPager(mViewPager);
         // END_INCLUDE (setup_slidingtablayout)
     }
 
     class SamplePagerAdapter extends PagerAdapter {
-String[] mTitles={"推荐","学术","庆典","营销","体育","娱乐","修闲","文艺"};
+String[] mTitles={"推荐","11","222","333","4444","5555","6666","7777"};
         /**
          * @return the number of pages to display
          */
@@ -163,6 +165,7 @@ String[] mTitles={"推荐","学术","庆典","营销","体育","娱乐","修闲"
             View view = getActivity().getLayoutInflater().inflate(R.layout.pager_item,
                     container, false);
             // Add the newly created View to the ViewPager
+            int count=mViewPager.getChildCount();
             container.addView(view);
 
             // Retrieve a TextView from the inflated View, and update its text
@@ -182,7 +185,6 @@ String[] mTitles={"推荐","学术","庆典","营销","体育","娱乐","修闲"
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-
         }
 
     }
@@ -215,6 +217,23 @@ String[] mTitles={"推荐","学术","庆典","营销","体育","娱乐","修闲"
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+
+    }
+
+    class RecommendedScenesView extends LinearLayout
+    {
+        public RecommendedScenesView(Context context) {
+            super(context);
+        }
+
+        public RecommendedScenesView(Context context, @Nullable AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public RecommendedScenesView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
 
     }
 }

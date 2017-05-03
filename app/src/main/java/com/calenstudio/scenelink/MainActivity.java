@@ -23,7 +23,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
-import com.calenstudio.scenelink.view.mainpage.FindFragment;
+import com.calenstudio.scenelink.view.mainpage.DiscoverFragment;
 import com.calenstudio.scenelink.view.mainpage.LinkFragment;
 import com.calenstudio.scenelink.view.mainpage.MyFragment;
 import com.calenstudio.scenelink.view.mainpage.NearbyFragment;
@@ -34,7 +34,7 @@ import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements FindFragment.OnFragmentInteractionListener
+        implements DiscoverFragment.OnFragmentInteractionListener
         ,LinkFragment.OnFragmentInteractionListener,
         MyFragment.OnFragmentInteractionListener,
         NearbyFragment.OnFragmentInteractionListener
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     {
         mFragments=new ArrayList<>();
         mFragments.add(LinkFragment.newInstance("",""));
-        mFragments.add(FindFragment.newInstance("",""));
+        mFragments.add(DiscoverFragment.newInstance("",""));
         mFragments.add(NearbyFragment.newInstance("",""));
         mFragments.add(NearbyFragment.newInstance("",""));
     }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         mBottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.bnv_link, R.string.title_link))
-                .addItem(new BottomNavigationItem(R.drawable.bnv_find, R.string.title_find))
+                .addItem(new BottomNavigationItem(R.drawable.bnv_find, R.string.title_discover))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_nearby, R.string.title_nearby))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_my, R.string.title_my))
                 .initialise();
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
                 mActionBar.setTitle(R.string.title_link);
                 break;
             case 1:
-                mActionBar.setTitle(R.string.title_find);
+                mActionBar.setTitle(R.string.title_discover);
                 break;
             case 2:
                 mActionBar.setTitle(R.string.title_nearby);

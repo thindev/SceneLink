@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">现连</string>
     <string name="title_link">现连</string>
-    <string name="title_find">发现</string>
+    <string name="title_discover">发现</string>
     <string name="title_nearby">附近</string>
     <string name="title_my">我的</string>
     <string name="tooltip_scan">扫一扫</string>
