@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.calenstudio.scenelink.view.mainpage.ResourcesFragment">
+    tools:context="com.calenstudio.scenelink.view.mainpage.NearbyFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

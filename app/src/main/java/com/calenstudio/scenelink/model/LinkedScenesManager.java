@@ -56,7 +56,7 @@ public class LinkedScenesManager {
                         si.setImg(R.drawable.aa);
                         si.setBeginTime(new Date());
                         si.setEndTime(new Date());
-                        si.setName("2017学校环境学院迎新联欢晚会");
+                        si.setName("2017深圳智能时代数字化产品展览会");
                         mSceneInfos.add(si);
                         si=new SceneInfo();
                         si.setId(UUID.randomUUID().toString());
@@ -70,7 +70,7 @@ public class LinkedScenesManager {
                         si.setImg(R.drawable.cc);
                         si.setBeginTime(new Date());
                         si.setEndTime(new Date());
-                        si.setName("学成教育春季集体春游户外徙步活动");
+                        si.setName("第28届维娜斯杯全球华人歌手大赛广东赛区");
                         mSceneInfos.add(si);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

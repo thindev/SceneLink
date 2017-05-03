@@ -11,6 +11,6 @@
     <color name="navigationBarBackground">#fefefe</color>
     <color name="toolBarMenuColor">#444</color>
     <color name="toolBarTitleColor">#111</color>
-    <color name="splitLineColor">#d0d0d0</color>
+    <color name="splitLineColor">#dfdfdf</color>
     <color name="colorLight">#fff</color>
 </resources>

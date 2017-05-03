@@ -1,11 +1,11 @@
 package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import com.calenstudio.scenelink.R;
 import com.calenstudio.scenelink.view.basic.SlidingTabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,26 +91,42 @@ public class FindFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set its PagerAdapter so that it can display items
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_find);
         mViewPager.setAdapter(new FindFragment.SamplePagerAdapter());
         // END_INCLUDE (setup_viewpager)
-
         // BEGIN_INCLUDE (setup_slidingtablayout)
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
         // its PagerAdapter set.
-        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs_find);
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return ContextCompat.getColor(getContext(),R.color.colorAccent);
+            }
+
+            @Override
+            public int getDividerColor(int position) {
+                return 0x00000000;
+            }
+
+            @Override
+            public int getNormalColor(int position) {
+                return ContextCompat.getColor(getContext(),R.color.itemIconInactiveColor);
+            }
+        });
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_title_find,R.id.txt_title);
         mSlidingTabLayout.setViewPager(mViewPager);
         // END_INCLUDE (setup_slidingtablayout)
     }
 
     class SamplePagerAdapter extends PagerAdapter {
-
+String[] mTitles={"推荐","学术","庆典","营销","体育","娱乐","修闲","文艺"};
         /**
          * @return the number of pages to display
          */
         @Override
         public int getCount() {
-            return 10;
+            return 8;
         }
 
         /**
@@ -129,7 +148,8 @@ public class FindFragment extends Fragment {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Item " + (position + 1);
+
+            return mTitles[position];
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -147,7 +167,7 @@ public class FindFragment extends Fragment {
 
             // Retrieve a TextView from the inflated View, and update its text
             TextView title = (TextView) view.findViewById(R.id.item_title);
-            title.setText(String.valueOf(position + 1));
+            title.setText(mTitles[position]);
 
 
 

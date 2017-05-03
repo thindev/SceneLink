@@ -64,6 +64,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
          */
         int getDividerColor(int position);
 
+        int getNormalColor(int position);
+
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;
@@ -222,6 +224,15 @@ public class SlidingTabLayout extends HorizontalScrollView {
             tabView.setOnClickListener(tabClickListener);
 
             mTabStrip.addView(tabView);
+            if(mTabStrip.getChildCount()>0)
+            {
+                TextView tv=(TextView) mTabStrip.getChildAt(0);
+                TabColorizer tc=mTabStrip.getCustomTabColorizer();
+                if(tv!=null&&tc!=null)
+                {
+                    tv.setTextColor(tc.getIndicatorColor(0));
+                }
+            }
         }
     }
 
@@ -255,7 +266,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
         private int mScrollState;
-
+        private int mLastSelectedPosition;
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             int tabStripChildCount = mTabStrip.getChildCount();
@@ -296,6 +307,17 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
+               if(mLastSelectedPosition>=0&&mLastSelectedPosition<mTabStrip.getChildCount()) {
+                   TextView tv = (TextView) mTabStrip.getChildAt(mLastSelectedPosition);
+                   TabColorizer tc=mTabStrip.getCustomTabColorizer();
+                   if(tv!=null&&tc!=null)
+                   tv.setTextColor(tc.getNormalColor(mLastSelectedPosition));
+               }
+            TextView tv = (TextView) mTabStrip.getChildAt(position);
+            TabColorizer tc=mTabStrip.getCustomTabColorizer();
+            if(tv!=null&&tc!=null)
+                tv.setTextColor(tc.getIndicatorColor(position));
+            mLastSelectedPosition=position;
         }
 
     }

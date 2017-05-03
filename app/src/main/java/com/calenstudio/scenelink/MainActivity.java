@@ -26,7 +26,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.calenstudio.scenelink.view.mainpage.FindFragment;
 import com.calenstudio.scenelink.view.mainpage.LinkFragment;
 import com.calenstudio.scenelink.view.mainpage.MyFragment;
-import com.calenstudio.scenelink.view.mainpage.ResourcesFragment;
+import com.calenstudio.scenelink.view.mainpage.NearbyFragment;
 
 
 import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         implements FindFragment.OnFragmentInteractionListener
         ,LinkFragment.OnFragmentInteractionListener,
         MyFragment.OnFragmentInteractionListener,
-        ResourcesFragment.OnFragmentInteractionListener
+        NearbyFragment.OnFragmentInteractionListener
 
 {
     static {
@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity
         mFragments=new ArrayList<>();
         mFragments.add(LinkFragment.newInstance("",""));
         mFragments.add(FindFragment.newInstance("",""));
-        mFragments.add(ResourcesFragment.newInstance("",""));
-        mFragments.add(ResourcesFragment.newInstance("",""));
+        mFragments.add(NearbyFragment.newInstance("",""));
+        mFragments.add(NearbyFragment.newInstance("",""));
     }
     private void initBottomNavigationBar() {
         if(mFragments==null){
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.bnv_link, R.string.title_link))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_find, R.string.title_find))
-                .addItem(new BottomNavigationItem(R.drawable.bnv_resource, R.string.title_resource))
+                .addItem(new BottomNavigationItem(R.drawable.bnv_nearby, R.string.title_nearby))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_my, R.string.title_my))
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
                 mActionBar.setTitle(R.string.title_find);
                 break;
             case 2:
-                mActionBar.setTitle(R.string.title_resource);
+                mActionBar.setTitle(R.string.title_nearby);
                 break;
             case 3:
                 mActionBar.setTitle(R.string.title_my);
