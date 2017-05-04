@@ -23,28 +23,32 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
+import com.calenstudio.scenelink.view.mainpage.ClassifiedScenesFragment;
 import com.calenstudio.scenelink.view.mainpage.DiscoverFragment;
 import com.calenstudio.scenelink.view.mainpage.LinkFragment;
 import com.calenstudio.scenelink.view.mainpage.MyFragment;
 import com.calenstudio.scenelink.view.mainpage.NearbyFragment;
 
 
+import com.calenstudio.scenelink.view.mainpage.RecommendFragment;
 import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements DiscoverFragment.OnFragmentInteractionListener
-        ,LinkFragment.OnFragmentInteractionListener,
+        implements DiscoverFragment.OnFragmentInteractionListener,
+        LinkFragment.OnFragmentInteractionListener,
         MyFragment.OnFragmentInteractionListener,
-        NearbyFragment.OnFragmentInteractionListener
-
+        NearbyFragment.OnFragmentInteractionListener,
+        ClassifiedScenesFragment.OnFragmentInteractionListener,
+        RecommendFragment.OnFragmentInteractionListener
 {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
     private Toolbar mActionBar;
     private ArrayList<Fragment> mFragments;
+    private Fragment mCurrentFragment;
     private BottomNavigationBar mBottomNavigationBar;
     private int mLastSelectPosition;
     @Override
@@ -92,6 +96,15 @@ public class MainActivity extends AppCompatActivity
         mFragments.add(DiscoverFragment.newInstance("",""));
         mFragments.add(NearbyFragment.newInstance("",""));
         mFragments.add(NearbyFragment.newInstance("",""));
+        FragmentTransaction ft= this.getSupportFragmentManager()
+                .beginTransaction();
+        ft.add(R.id.content, mFragments.get(3),"3").hide(mFragments.get(3))
+                .add(R.id.content,mFragments.get(2),"2").hide(mFragments.get(2))
+                .add(R.id.content,mFragments.get(1),"1").hide(mFragments.get(1))
+                .add(R.id.content,mFragments.get(0),"0").hide(mFragments.get(0));
+        ft.show(mFragments.get(0));
+        ft.commit();
+        mCurrentFragment=mFragments.get(0);
     }
     private void initBottomNavigationBar() {
         if(mFragments==null){
@@ -152,10 +165,9 @@ public class MainActivity extends AppCompatActivity
             {
                  ft.setCustomAnimations(R.anim.slide_in_right_scene_snapshot, R.anim.slide_out_left_scene_snapshot);
             }
-
-
-                    ft.replace(R.id.content,mFragments.get(position))
+                    ft.hide(mCurrentFragment).show(mFragments.get(position))
                     .commit();
+                    mCurrentFragment=mFragments.get(position);
 
         }
     }

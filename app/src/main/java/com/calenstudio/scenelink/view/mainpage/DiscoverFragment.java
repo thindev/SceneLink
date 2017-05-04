@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -84,6 +86,11 @@ public class DiscoverFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -94,7 +101,7 @@ public class DiscoverFragment extends Fragment {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set its PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_find);
-        mViewPager.setAdapter(new DiscoverFragment.SamplePagerAdapter());
+        mViewPager.setAdapter(new DiscoverFragment.DiscoverFragmentsAdapter(getFragmentManager(),mDiscoverScenesManager));
         // END_INCLUDE (setup_viewpager)
         // BEGIN_INCLUDE (setup_slidingtablayout)
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
@@ -121,73 +128,43 @@ public class DiscoverFragment extends Fragment {
         // END_INCLUDE (setup_slidingtablayout)
     }
 
-    class SamplePagerAdapter extends PagerAdapter {
-String[] mTitles={"推荐","11","222","333","4444","5555","6666","7777"};
-        /**
-         * @return the number of pages to display
-         */
-        @Override
-        public int getCount() {
-            return 8;
+        class DiscoverFragmentsAdapter extends FragmentStatePagerAdapter {
+            DiscoverScenesManager mDiscoverScenesManager;
+            RecommendFragment mRecommendFragment;
+            public DiscoverFragmentsAdapter(FragmentManager fm,DiscoverScenesManager discoverScenesManager) {
+                super(fm);
+                mDiscoverScenesManager=discoverScenesManager;
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                if(position==0)
+                {
+                    if(mRecommendFragment==null)
+                    {
+                        mRecommendFragment=RecommendFragment.newInstance(mDiscoverScenesManager.getSceneCategories().get(position));
+                    }
+                    return mRecommendFragment;
+                }
+                return ClassifiedScenesFragment.newInstance(mDiscoverScenesManager.getSceneCategories().get(position));
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+               if(position!=0)
+                super.destroyItem(container, position, object);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mDiscoverScenesManager.getSceneCategories().get(position).getCategoryName();
+            }
+
+            @Override
+            public int getCount() {
+                return mDiscoverScenesManager.getSceneCategories().size();
+            }
         }
-
-        /**
-         * @return true if the value returned from {@link #instantiateItem(ViewGroup, int)} is the
-         * same object as the {@link View} added to the {@link ViewPager}.
-         */
-        @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return o == view;
-        }
-
-        // BEGIN_INCLUDE (pageradapter_getpagetitle)
-        /**
-         * Return the title of the item at {@code position}. This is important as what this method
-         * returns is what is displayed in the {@link SlidingTabLayout}.
-         * <p>
-         * Here we construct one using the position value, but for real application the title should
-         * refer to the item's contents.
-         */
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            return mTitles[position];
-        }
-        // END_INCLUDE (pageradapter_getpagetitle)
-
-        /**
-         * Instantiate the {@link View} which should be displayed at {@code position}. Here we
-         * inflate a layout from the apps resources and then change the text view to signify the position.
-         */
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // Inflate a new layout from our resources
-            View view = getActivity().getLayoutInflater().inflate(R.layout.pager_item,
-                    container, false);
-            // Add the newly created View to the ViewPager
-            int count=mViewPager.getChildCount();
-            container.addView(view);
-
-            // Retrieve a TextView from the inflated View, and update its text
-            TextView title = (TextView) view.findViewById(R.id.item_title);
-            title.setText(mTitles[position]);
-
-
-
-            // Return the View
-            return view;
-        }
-
-        /**
-         * Destroy the item from the {@link ViewPager}. In our case this is simply removing the
-         * {@link View}.
-         */
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-    }
 
     @Override
     public void onAttach(Context context) {
