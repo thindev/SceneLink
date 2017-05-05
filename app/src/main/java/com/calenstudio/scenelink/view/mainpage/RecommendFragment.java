@@ -1,15 +1,23 @@
 package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.calenstudio.scenelink.R;
 import com.calenstudio.scenelink.bean.SceneCategory;
+import com.calenstudio.scenelink.model.RecommendedScenesManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +34,9 @@ public class RecommendFragment extends Fragment {
     private static final String ARG_CATEGORY_NAME = "categoryName";
 
     private SceneCategory mSceneCategory;
-
+    private RecommendedScenesManager mRecommendedScenesManager;
+    private ListView mListView;
+    private  BaseAdapter mBaseAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,19 +52,65 @@ public class RecommendFragment extends Fragment {
         args.putString(ARG_CATEGORY_NAME, sc.getCategoryName());
         fragment.setArguments(args);
         fragment.mSceneCategory=sc;
+        fragment.mRecommendedScenesManager=new RecommendedScenesManager();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mBaseAdapter=new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return mRecommendedScenesManager.getRecommendedGroupList().size();
+            }
+
+            @Override
+            public Object getItem(int i) {
+                return mRecommendedScenesManager.getRecommendedGroupList().get(i);
+            }
+
+            @Override
+            public long getItemId(int i) {
+                return mRecommendedScenesManager.getRecommendedGroupList().get(i).getGroupId().hashCode();
+            }
+
+            @Override
+            public View getView(int i, View view, ViewGroup viewGroup) {
+                RecommendedScenesManager.RecommendedGroup group=mRecommendedScenesManager.getRecommendedGroupList().get(i);
+                View re=null;
+                switch (group.getLayoutType())
+                {
+                    case RecommendedScenesManager.LAYOUT_TYPE_BANNER:
+                        BannerScenesView bsv=(BannerScenesView) LayoutInflater.from(getContext()).inflate(R.layout.view_scenes_banner,viewGroup,false);
+                        bsv.setRecommendedGroup(group);
+                        re=bsv;
+                        break;
+                    case RecommendedScenesManager.LAYOUT_TYPE_HORIZONTAL_LIST:
+                        re=  new HorizontalListView(getContext());
+                        break;
+                        case RecommendedScenesManager.LAYOUT_TYPE_TILE:
+                            re=  new TiledScenesView(getContext());
+                            break;
+                        case RecommendedScenesManager.LAYOUT_TYPE_VERBICAL_LIST:
+                            re= new  VerticalListScenesView(getContext());
+                            break;
+                        default:
+                            re= new View(getContext());
+                            break;
+                }
+                return  re;
+            }
+        };
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recommend, container, false);
+        mListView=(ListView) inflater.inflate(R.layout.fragment_recommend, container, false);
+        mListView.setAdapter(mBaseAdapter);
+        return  mListView;
     }
 
     @Override

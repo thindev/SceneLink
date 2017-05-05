@@ -1,37 +1,9 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="@color/splitLineColor"
+    android:dividerHeight="6dp"
     android:scrollbars="none"
     tools:context="com.calenstudio.scenelink.view.mainpage.RecommendFragment">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:background="#ff0000"
-        />
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:background="#00ff00"
-           />
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:background="#0000ff"
-           />
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:background="#fff000"
-           />
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:background="#0f0fff"
-           />
-</LinearLayout>
-</ScrollView>
+</ListView>

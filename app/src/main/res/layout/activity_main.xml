@@ -9,11 +9,11 @@
     tools:context="com.calenstudio.scenelink.MainActivity">
 <include layout="@layout/toolbar_main"
     />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line_size"
-        android:background="@color/splitLineColor"
-        />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/divider_line_size"-->
+        <!--android:background="@color/splitLineColor"-->
+        <!--/>-->
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
