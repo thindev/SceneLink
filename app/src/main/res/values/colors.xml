@@ -13,4 +13,5 @@
     <color name="toolBarTitleColor">#fefefe</color>
     <color name="splitLineColor">#dfdfdf</color>
     <color name="colorLight">#fff</color>
+    <color name="titleColor_group">#111</color>
 </resources>

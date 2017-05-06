@@ -33,6 +33,9 @@ import com.calenstudio.scenelink.view.mainpage.NearbyFragment;
 import com.calenstudio.scenelink.view.mainpage.RecommendFragment;
 import com.calenstudio.scenelink.view.mainpage.SearchLinkedSceneActivity;
 
+
+import com.calenstudio.scenelink.view.mainpage.SetSceneCategoryFragment;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity
         MyFragment.OnFragmentInteractionListener,
         NearbyFragment.OnFragmentInteractionListener,
         ClassifiedScenesFragment.OnFragmentInteractionListener,
-        RecommendFragment.OnFragmentInteractionListener
+        RecommendFragment.OnFragmentInteractionListener,
+        SetSceneCategoryFragment.OnFragmentInteractionListener
 {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);

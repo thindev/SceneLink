@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,12 +17,23 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.CheckBox;
+
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.calenstudio.scenelink.R;
 import com.calenstudio.scenelink.model.DiscoverScenesManager;
 import com.calenstudio.scenelink.view.basic.SlidingTabLayout;
+
+
+
+import butterknife.BindView;
+
+
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +56,7 @@ public class DiscoverFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     static final String LOG_TAG = "SlidingTabsBasicFragment";
     private final DiscoverScenesManager mDiscoverScenesManager;
+    private SetSceneCategoryFragment mSetSceneCategoryFragment;
     /**
      * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
      * above, but is designed to give continuous feedback to the user when scrolling.
@@ -53,6 +67,8 @@ public class DiscoverFragment extends Fragment {
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
+    @BindView(R.id.checkbox_set_scene_category)
+    CheckBox mCb_setting;
     public DiscoverFragment() {
         // Required empty public constructor
         mDiscoverScenesManager=new DiscoverScenesManager();
@@ -94,7 +110,9 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_discover, container, false);
+        View view= inflater.inflate(R.layout.fragment_discover, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -126,6 +144,25 @@ public class DiscoverFragment extends Fragment {
         mSlidingTabLayout.setCustomTabView(R.layout.tab_title_scene_category,R.id.txt_title);
         mSlidingTabLayout.setViewPager(mViewPager);
         // END_INCLUDE (setup_slidingtablayout)
+        mCb_setting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FragmentTransaction ft= getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_top_set_scene_category,R.anim.slide_out_top_set_scene_category);
+                if(isChecked)
+                {
+                   mSetSceneCategoryFragment=SetSceneCategoryFragment.newInstance("","");
+                    ft.add(R.id.container_set_scene_category,mSetSceneCategoryFragment);
+                    ft.commit();
+                }
+                else
+                {
+                   ft.remove(mSetSceneCategoryFragment);
+                    ft.commit();
+                    mSetSceneCategoryFragment=null;
+                }
+            }
+        });
     }
 
         class DiscoverFragmentsAdapter extends FragmentStatePagerAdapter {

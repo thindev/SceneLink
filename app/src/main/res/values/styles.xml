@@ -13,4 +13,5 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/toolBarTitleColor</item>
     </style>
+
 </resources>

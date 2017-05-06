@@ -56,7 +56,7 @@ public class LinkedScenesManager {
                         si.setImg(R.drawable.aa);
                         si.setBeginTime(new Date());
                         si.setEndTime(new Date());
-                        si.setName("2017深圳智能时代数字化产品展览会");
+                        si.setName("2017深圳智能时代智能时代数字化产品能时代数字化产品展览会");
                         mSceneInfos.add(si);
                         si=new SceneInfo();
                         si.setId(UUID.randomUUID().toString());
