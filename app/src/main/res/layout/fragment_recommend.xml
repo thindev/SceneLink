@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@color/splitLineColor"
-    android:dividerHeight="6dp"
+    android:divider="#f2f2f2"
+    android:dividerHeight="10dp"
     android:scrollbars="none"
     tools:context="com.calenstudio.scenelink.view.mainpage.RecommendFragment">
 </ListView>

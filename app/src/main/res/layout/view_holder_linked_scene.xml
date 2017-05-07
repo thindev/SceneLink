@@ -35,7 +35,7 @@
                 app:srcCompat="@drawable/ic_group" />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:textSize="14sp"
                 android:layout_gravity="center"
                 android:layout_marginStart="2dp"

@@ -1,6 +1,8 @@
 package com.calenstudio.scenelink.model;
 
 import com.calenstudio.scenelink.R;
+
+import com.calenstudio.scenelink.bean.RecommendedGroup;
 import com.calenstudio.scenelink.bean.SceneInfo;
 
 import java.util.ArrayList;
@@ -55,8 +57,37 @@ public class RecommendedScenesManager {
         mRecommendedGroupList.add(rg);
         rg=new RecommendedGroup();
         rg.setGroupId("1");
-        rg.setGroupName("火热进行中");
-        rg.setLayoutType(9);
+        rg.setGroupName("人气现场");
+        ss=rg.getSceneInfos();
+         si=new SceneInfo();
+        si.setId(UUID.randomUUID().toString());
+        si.setImg(R.drawable.aa);
+        si.setBeginTime(new Date());
+        si.setEndTime(new Date());
+        si.setName("2017深圳智能时代数字化产品展览会");
+        ss.add(si);
+        si=new SceneInfo();
+        si.setId(UUID.randomUUID().toString());
+        si.setImg(R.drawable.bb);
+        si.setBeginTime(new Date());
+        si.setEndTime(new Date());
+        si.setName("2017第一季度苹果电子产品新品发现会");
+        ss.add(si);
+        si=new SceneInfo();
+        si.setId(UUID.randomUUID().toString());
+        si.setImg(R.drawable.cc);
+        si.setBeginTime(new Date());
+        si.setEndTime(new Date());
+        si.setName("第28届维娜斯杯全球华人歌手大赛广东赛区");
+        ss.add(si);
+        si=new SceneInfo();
+        si.setId(UUID.randomUUID().toString());
+        si.setImg(R.drawable.aa);
+        si.setBeginTime(new Date());
+        si.setEndTime(new Date());
+        si.setName("2017深圳智能时代数字化产品展览会");
+        ss.add(si);
+        rg.setLayoutType(LAYOUT_TYPE_VERBICAL_LIST);
         mRecommendedGroupList.add(rg);
         rg=new RecommendedGroup();
         rg.setGroupId("0");
@@ -74,40 +105,5 @@ public class RecommendedScenesManager {
         this.InitRecommendedScenes();
     }
 
-    public class RecommendedGroup
-    {
-        public String getGroupId() {
-            return mGroupId;
-        }
 
-        public void setGroupId(String groupId) {
-            mGroupId = groupId;
-        }
-
-        public String getGroupName() {
-            return mGroupName;
-        }
-
-        public void setGroupName(String groupName) {
-            mGroupName = groupName;
-        }
-
-        public int getLayoutType() {
-            return mLayoutType;
-        }
-
-        public void setLayoutType(int layoutType) {
-            mLayoutType = layoutType;
-        }
-
-        public List<SceneInfo> getSceneInfos() {
-            return mSceneInfos;
-        }
-
-        private String mGroupId;
-        private String mGroupName;
-        private int mLayoutType;
-        private List<SceneInfo> mSceneInfos=new ArrayList<>();
-
-    }
 }

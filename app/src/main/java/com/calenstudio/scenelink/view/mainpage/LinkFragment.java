@@ -206,6 +206,7 @@ public class LinkFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             SceneInfo sceneInfo=mLinkedScenesManager.getSceneInfos().get(position);
+            holder.resetViews();
             holder.Bind(sceneInfo);
         }
 
@@ -215,9 +216,8 @@ public class LinkFragment extends Fragment {
         }
 
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+         class ViewHolder extends RecyclerView.ViewHolder {
             SceneInfo mSceneInfo;
-            boolean mIsSceneNameShowed;
             @BindView(R.id.ts_scene_name)
             TextView mTextViewName;
             @BindView(R.id.img_switcher_scene_snapshot)
@@ -240,10 +240,13 @@ public class LinkFragment extends Fragment {
             {
                 mSceneInfo=sceneInfo;
                 mTextViewName.setText(sceneInfo.getName());
-                mIsSceneNameShowed=true;
                 mImageSwitcher.setImageResource(sceneInfo.getImg());
             }
-
+            public  void resetViews()
+            {
+                mTextViewName.setText("");
+                mImageSwitcher.setImageDrawable(null);
+            }
         }
 
 
