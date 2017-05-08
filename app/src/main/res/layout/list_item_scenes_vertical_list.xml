@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -12,42 +13,40 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:paddingTop="18dp"
-    android:paddingBottom="12dp"
     >
     <TextView
         android:id="@+id/tv_sceneGrupTitle"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:text=""
         android:textStyle="bold"
         android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:layout_gravity="center_vertical"/>
-    <Button
-        android:layout_width="45dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:background="#fff"
-        android:text="换一换"
-        android:layout_weight="0.01"/>
+   <Button
+       android:layout_width="68dp"
+       android:layout_height="match_parent"
+       android:background="#fff"
+       android:textColor="@color/colorAccent"
+       android:drawableLeft="@drawable/ic_change_compat"
+       android:text="换一换"
+       />
 </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_line_size"
         android:background="@color/splitLineColor"/>
-    <ListView
-        android:id="@+id/listView_scenes"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/verticalList_scenes"
         android:layout_width="match_parent"
-        android:layout_height="441dp"
-        android:dividerHeight="@dimen/divider_line_size"
-        android:divider="@color/splitLineColor"
-        android:scrollbars="none"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line_size"
-        android:background="@color/splitLineColor"/>
+        android:layout_height="wrap_content"
+        android:showDividers="middle|end"
+        android:divider="@drawable/divider_line_horizontal"/>
+
     <Button
         android:id="@+id/button_more"
         android:layout_width="match_parent"

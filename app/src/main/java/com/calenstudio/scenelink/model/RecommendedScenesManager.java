@@ -2,6 +2,7 @@ package com.calenstudio.scenelink.model;
 
 import com.calenstudio.scenelink.R;
 
+import com.calenstudio.scenelink.bean.Location;
 import com.calenstudio.scenelink.bean.RecommendedGroup;
 import com.calenstudio.scenelink.bean.SceneInfo;
 
@@ -65,6 +66,9 @@ public class RecommendedScenesManager {
         si.setBeginTime(new Date());
         si.setEndTime(new Date());
         si.setName("2017深圳智能时代数字化产品展览会");
+        Location location=new Location();
+        location.setAddress("广东省广州市越秀区中山六路89号");
+        si.setLocation(location);
         ss.add(si);
         si=new SceneInfo();
         si.setId(UUID.randomUUID().toString());
@@ -72,6 +76,10 @@ public class RecommendedScenesManager {
         si.setBeginTime(new Date());
         si.setEndTime(new Date());
         si.setName("2017第一季度苹果电子产品新品发现会");
+        si.hasMultiThumbNail=true;
+        location=new Location();
+        location.setAddress("广东省广州市海珠区新滘西路");
+        si.setLocation(location);
         ss.add(si);
         si=new SceneInfo();
         si.setId(UUID.randomUUID().toString());
@@ -79,13 +87,9 @@ public class RecommendedScenesManager {
         si.setBeginTime(new Date());
         si.setEndTime(new Date());
         si.setName("第28届维娜斯杯全球华人歌手大赛广东赛区");
-        ss.add(si);
-        si=new SceneInfo();
-        si.setId(UUID.randomUUID().toString());
-        si.setImg(R.drawable.aa);
-        si.setBeginTime(new Date());
-        si.setEndTime(new Date());
-        si.setName("2017深圳智能时代数字化产品展览会");
+        location=new Location();
+        location.setAddress("广东省广州市海珠区英华街");
+        si.setLocation(location);
         ss.add(si);
         rg.setLayoutType(LAYOUT_TYPE_VERBICAL_LIST);
         mRecommendedGroupList.add(rg);

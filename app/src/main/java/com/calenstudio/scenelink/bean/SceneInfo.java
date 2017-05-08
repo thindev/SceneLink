@@ -13,6 +13,7 @@ public class SceneInfo {
     private Location mLocation;
     private Date mBeginTime;
     private Date mEndTime;
+    public boolean hasMultiThumbNail;
 
 
     public int getImg() {

@@ -7,7 +7,7 @@ package com.calenstudio.scenelink.bean;
 public class Location {
     private double mX;
     private double mY;
-    private double mAddress;
+    private String mAddress;
 
     public double getX() {
         return mX;
@@ -25,11 +25,11 @@ public class Location {
         mY = y;
     }
 
-    public double getAddress() {
+    public String getAddress() {
         return mAddress;
     }
 
-    public void setAddress(double address) {
+    public void setAddress(String address) {
         mAddress = address;
     }
 }

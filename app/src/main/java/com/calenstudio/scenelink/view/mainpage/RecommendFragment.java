@@ -5,6 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -48,7 +53,7 @@ public class RecommendFragment extends Fragment {
 
     private SceneCategory mSceneCategory;
     private RecommendedScenesManager mRecommendedScenesManager;
-    private ListView mListView;
+    private ListViewCompat mListView;
 
 
     private OnFragmentInteractionListener mListener;
@@ -56,8 +61,6 @@ public class RecommendFragment extends Fragment {
     public RecommendFragment() {
         // Required empty public constructor
     }
-
-
     public static RecommendFragment newInstance(SceneCategory sc) {
         RecommendFragment fragment = new RecommendFragment();
         Bundle args = new Bundle();
@@ -79,7 +82,7 @@ public class RecommendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mListView=(ListView) inflater.inflate(R.layout.fragment_recommend, container, false);
+        mListView=(ListViewCompat) inflater.inflate(R.layout.fragment_recommend, container, false);
         mListView.setAdapter(new SceneGroupAdapter(mRecommendedScenesManager.getRecommendedGroupList()));
         return  mListView;
     }
@@ -258,26 +261,26 @@ public class RecommendFragment extends Fragment {
         }
     }
     private  static class VerticalListViewHolder extends ViewHolderBase {
-        private ListView mListView;
+        private LinearLayout mLayout;
         private TextView mtv_title;
         private Button mButton_more;
         public VerticalListViewHolder(Context cxt,@NonNull View view) {
             super(cxt);
-            mListView=(ListView)view.findViewById(R.id.listView_scenes) ;
+            mLayout=(LinearLayout) view.findViewById(R.id.verticalList_scenes) ;
             mtv_title=(TextView)view.findViewById(R.id.tv_sceneGrupTitle);
             mButton_more=(Button)view.findViewById(R.id.button_more);
         }
 
         @Override
         public void resetViews() {
-            mListView.setAdapter(null);
+            mLayout.removeAllViews();
             mtv_title.setText("");
             mButton_more.setOnClickListener(null);
         }
         @Override
         public void setRecommendedGroup(RecommendedGroup recommendedGroup) {
             super.setRecommendedGroup(recommendedGroup);
-            mListView.setAdapter(new MyListAdapter());
+            creatViewList(recommendedGroup.getSceneInfos());
             mtv_title.setText(recommendedGroup.getGroupName());
             mButton_more.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -286,32 +289,31 @@ public class RecommendFragment extends Fragment {
                 }
             });
         }
-        private class MyListAdapter extends BaseAdapter
+        private void creatViewList(List<SceneInfo> scenes)
         {
-            @Override
-            public int getCount() {
-                return mRecommendedGroup.getSceneInfos().size();
-            }
+            for (SceneInfo si:scenes) {
 
-            @Override
-            public Object getItem(int position) {
-                return mRecommendedGroup.getSceneInfos().get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return mRecommendedGroup.getSceneInfos().get(position).getId().hashCode();
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-               if(convertView==null)
-               {
-                   convertView=LayoutInflater.from(mContext).inflate(R.layout.list_item_single_scene,parent,false);
-               }
-               return convertView;
+                View view=null;
+                if(si.hasMultiThumbNail)
+                {
+                    view= LayoutInflater.from(mContext).inflate(R.layout.list_item_single_scene_multi_images,mLayout,false);
+                }
+                else
+                {
+                    view= LayoutInflater.from(mContext).inflate(R.layout.list_item_single_scene,mLayout,false);
+                }
+                mLayout.addView(view);
+                TextView sceneName=(TextView)view.findViewById(R.id.tv_scene_name);
+                TextView startTime=(TextView)view.findViewById(R.id.tv_scene_startTime);
+                TextView address=(TextView)view.findViewById(R.id.tv_scene_address);
+                ImageView img=(ImageView)view.findViewById(R.id.image_scene);
+                sceneName.setText(si.getName());
+                startTime.setText(Util.FormatDate(si.getBeginTime(),"MM月dd日 HH:mm"));
+                address.setText(si.getLocation().getAddress());
+                img.setImageResource(si.getImg());
             }
         }
+
     }
     private  static class HorizontalListViewHolder extends ViewHolderBase {
         public HorizontalListViewHolder(Context cxt) {

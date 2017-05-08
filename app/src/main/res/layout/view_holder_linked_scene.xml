@@ -14,6 +14,7 @@
         <TextView
             android:id="@+id/ts_scene_name"
             android:layout_width="0dp"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:maxLines="2"

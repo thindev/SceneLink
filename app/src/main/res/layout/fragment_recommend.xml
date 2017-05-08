@@ -1,4 +1,4 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.ListViewCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,4 +6,4 @@
     android:dividerHeight="10dp"
     android:scrollbars="none"
     tools:context="com.calenstudio.scenelink.view.mainpage.RecommendFragment">
-</ListView>
+</android.support.v7.widget.ListViewCompat>
