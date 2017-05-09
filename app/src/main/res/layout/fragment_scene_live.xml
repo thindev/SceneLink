@@ -22,7 +22,9 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayout.CollapsedTitleText"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarLayout.ExpandedTitleText"
-            app:expandedTitleMarginStart="4dp"
+            app:expandedTitleMarginStart="12dp"
+            app:collapsedTitleGravity="center"
+            app:expandedTitleMarginBottom="6dp"
             app:contentScrim="@color/toolBarBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 <ImageView
