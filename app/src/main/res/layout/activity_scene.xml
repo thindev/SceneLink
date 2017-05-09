@@ -32,7 +32,7 @@
         android:layout_gravity="bottom"
         app:bnbMode="mode_default"
         app:bnbInactiveColor="@color/itemIconInactiveColor"
-        app:bnbBackgroundColor="@color/navigationBarBackground"
+        app:bnbBackgroundColor="#000"
         />
 
 </LinearLayout>
