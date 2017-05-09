@@ -24,7 +24,7 @@ public final class Util {
         return Uri.parse(ANDROID_RESOURCE + context.getPackageName() + FOREWARD_SLASH + resourceId);
     }
 
-    public  static String FormatDate(Date date,String formatStr)
+    public  static String formatDate(Date date, String formatStr)
     {
         // 初始化时设置 日期和时间模式
         SimpleDateFormat sdf = new SimpleDateFormat(formatStr);

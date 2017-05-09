@@ -6,6 +6,7 @@
                                    android:layout_height="@dimen/toolbar_height"
                                    android:background="@color/toolBarBackground"
                                    android:minHeight="@dimen/toolbar_height"
+                                   app:titleTextAppearance="@style/Toolbar.TitleText"
                                    app:title="现连"
-                                   app:titleTextAppearance="@style/Toolbar.TitleText">
+                                   >
 </android.support.v7.widget.Toolbar>

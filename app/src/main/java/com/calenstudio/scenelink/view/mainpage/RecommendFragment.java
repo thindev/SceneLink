@@ -5,9 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 
 import android.widget.TextView;
@@ -308,7 +303,7 @@ public class RecommendFragment extends Fragment {
                 TextView address=(TextView)view.findViewById(R.id.tv_scene_address);
                 ImageView img=(ImageView)view.findViewById(R.id.image_scene);
                 sceneName.setText(si.getName());
-                startTime.setText(Util.FormatDate(si.getBeginTime(),"MM月dd日 HH:mm"));
+                startTime.setText(Util.formatDate(si.getBeginTime(),"MM月dd日 HH:mm"));
                 address.setText(si.getLocation().getAddress());
                 img.setImageResource(si.getImg());
             }

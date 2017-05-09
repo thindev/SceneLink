@@ -1,4 +1,4 @@
-package com.calenstudio.scenelink;
+package com.calenstudio.scenelink.view;
 
 import android.content.Intent;
 
@@ -23,6 +23,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
+import com.calenstudio.scenelink.R;
 import com.calenstudio.scenelink.view.mainpage.ClassifiedScenesFragment;
 import com.calenstudio.scenelink.view.mainpage.DiscoverFragment;
 import com.calenstudio.scenelink.view.mainpage.LinkFragment;

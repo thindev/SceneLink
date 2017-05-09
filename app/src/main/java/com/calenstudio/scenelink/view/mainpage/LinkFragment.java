@@ -1,11 +1,12 @@
 package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 
@@ -14,16 +15,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.TypedValue;
-
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
 import android.widget.ImageSwitcher;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 
@@ -31,14 +28,14 @@ import android.widget.ViewSwitcher;
 
 import com.calenstudio.scenelink.R;
 
+import com.calenstudio.scenelink.Util;
 import com.calenstudio.scenelink.bean.SceneInfo;
 import com.calenstudio.scenelink.model.LinkedScenesManager;
 
 
+import com.calenstudio.scenelink.view.scene.SceneActivity;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
-
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -196,11 +193,28 @@ public class LinkFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
     }
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
 
-    class LinkedScenesAdapter extends RecyclerView.Adapter<LinkedScenesAdapter.ViewHolder> {
+    public interface OnItemLongClickListener{
+        void onItemLongClick(View view,int position);
+    }
+     class LinkedScenesAdapter extends RecyclerView.Adapter<LinkedScenesAdapter.ViewHolder> {
+        private OnItemClickListener mOnItemClickListener;
+        private OnItemLongClickListener mOnItemLongClickListener;
+
+        public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+            this.mOnItemClickListener = mOnItemClickListener;
+        }
+
+        public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+            this.mOnItemLongClickListener = mOnItemLongClickListener;
+        }
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(getContext()).inflate(R.layout.view_holder_linked_scene, parent,false));
+            View view=LayoutInflater.from(getContext()).inflate(R.layout.view_holder_linked_scene, parent,false);
+            return new ViewHolder(view,mOnItemClickListener,mOnItemLongClickListener);
         }
 
         @Override
@@ -216,14 +230,25 @@ public class LinkFragment extends Fragment {
         }
 
 
-         class ViewHolder extends RecyclerView.ViewHolder {
+         class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+             private OnItemClickListener mOnItemClickListener;
+             private OnItemLongClickListener mOnItemLongClickListener;
             SceneInfo mSceneInfo;
             @BindView(R.id.ts_scene_name)
             TextView mTextViewName;
+             @BindView(R.id.tv_scene_address)
+             TextView mtv_address;
+             @BindView(R.id.tv_scene_startTime)
+             TextView mtv_scene_startTime;
             @BindView(R.id.img_switcher_scene_snapshot)
             ImageSwitcher mImageSwitcher;
-            public ViewHolder(View itemView) {
+            public ViewHolder(View itemView,OnItemClickListener onItemClickListener,OnItemLongClickListener onItemLongClickListener) {
                 super(itemView);
+                mOnItemClickListener=onItemClickListener;
+                mOnItemLongClickListener=onItemLongClickListener;
+                itemView.setOnClickListener(this);
+                ViewCompat.setTransitionName(mImageSwitcher,"");
+                itemView.setOnLongClickListener(this);
                 ButterKnife.bind(this,itemView);
                 mImageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
                     @Override
@@ -241,14 +266,31 @@ public class LinkFragment extends Fragment {
                 mSceneInfo=sceneInfo;
                 mTextViewName.setText(sceneInfo.getName());
                 mImageSwitcher.setImageResource(sceneInfo.getImg());
+                mtv_scene_startTime.setText(Util.formatDate(sceneInfo.getBeginTime(),"MM月dd日 HH:mm"));
+                mtv_address.setText("广州天河广场");
             }
             public  void resetViews()
             {
                 mTextViewName.setText("");
                 mImageSwitcher.setImageDrawable(null);
+                mtv_address.setText("");
+                mtv_scene_startTime.setText("");
+            }
+
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getContext(), SceneActivity.class);
+                intent.putExtra(SceneActivity.SCENE_ID,mSceneInfo.getId());
+                intent.putExtra(SceneActivity.SCENE_NAME,mSceneInfo.getName());
+                getContext().startActivity(intent);
+
+            }
+
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
             }
         }
-
 
     }
 }
