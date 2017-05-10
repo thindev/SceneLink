@@ -16,6 +16,9 @@ import com.calenstudio.scenelink.view.mainpage.NearbyFragment;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SceneActivity extends AppCompatActivity implements SceneLiveFragment.OnFragmentInteractionListener
 ,SceneMessagesFragment.OnFragmentInteractionListener,SceneMoreFragment.OnFragmentInteractionListener{
 public final  static  String SCENE_NAME="sceneName";
@@ -24,26 +27,17 @@ public final  static  String SCENE_NAME="sceneName";
     private Fragment mCurrentFragment;
     private BottomNavigationBar mBottomNavigationBar;
     private SceneInfo mSceneInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scene);
+        ButterKnife.bind(this);
         Intent intent= getIntent();
         mSceneInfo=new SceneInfo();
         mSceneInfo.setName(intent.getStringExtra(SCENE_NAME));
         mSceneInfo.setId(intent.getStringExtra(SCENE_ID));
         initBottomNavigationBar();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
     private  void  initFragments()
     {
@@ -66,7 +60,7 @@ public final  static  String SCENE_NAME="sceneName";
         }
         mBottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.bnv_link, R.string.scene_live))
+                .addItem(new BottomNavigationItem(R.drawable.bnv_live, R.string.scene_live))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_find, R.string.scene_message))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_nearby, R.string.scene_more))
                 .initialise();

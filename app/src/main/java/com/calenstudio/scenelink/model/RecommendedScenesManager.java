@@ -66,6 +66,7 @@ public class RecommendedScenesManager {
         si.setBeginTime(new Date());
         si.setEndTime(new Date());
         si.setName("2017深圳智能时代数字化产品展览会");
+        si.hasMultiThumbNail=true;
         Location location=new Location();
         location.setAddress("广东省广州市越秀区中山六路89号");
         si.setLocation(location);
@@ -76,7 +77,7 @@ public class RecommendedScenesManager {
         si.setBeginTime(new Date());
         si.setEndTime(new Date());
         si.setName("2017第一季度苹果电子产品新品发现会");
-        si.hasMultiThumbNail=true;
+
         location=new Location();
         location.setAddress("广东省广州市海珠区新滘西路");
         si.setLocation(location);

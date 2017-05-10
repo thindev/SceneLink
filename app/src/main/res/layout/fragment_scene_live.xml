@@ -7,14 +7,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.calenstudio.scenelink.view.scene.SceneActivity">
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
@@ -24,7 +22,7 @@
             app:expandedTitleTextAppearance="@style/CollapsingToolbarLayout.ExpandedTitleText"
             app:expandedTitleMarginStart="12dp"
             app:collapsedTitleGravity="center"
-            app:contentScrim="@color/toolBarBackground"
+            app:contentScrim="@color/colorAccent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 <ImageView
     android:layout_width="match_parent"
@@ -40,7 +38,6 @@
                 app:titleTextAppearance="@style/Toolbar.TitleText"
                 app:layout_collapseMode="pin"
                />
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
