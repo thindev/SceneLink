@@ -3,8 +3,12 @@ package com.calenstudio.scenelink.view.scene;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -27,7 +31,8 @@ public final  static  String SCENE_NAME="sceneName";
     private Fragment mCurrentFragment;
     private BottomNavigationBar mBottomNavigationBar;
     private SceneInfo mSceneInfo;
-
+    @BindView(R.id.viewpager_scene)
+    ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,32 @@ public final  static  String SCENE_NAME="sceneName";
         mSceneInfo.setName(intent.getStringExtra(SCENE_NAME));
         mSceneInfo.setId(intent.getStringExtra(SCENE_ID));
         initBottomNavigationBar();
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public int getCount() {
+                return mFragments.size();
+            }
+            @Override
+            public Fragment getItem(int position) {
+                return mFragments.get(position);
+            }
+        });
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mBottomNavigationBar.selectTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
     private  void  initFragments()
     {
@@ -45,13 +76,6 @@ public final  static  String SCENE_NAME="sceneName";
         mFragments.add(SceneLiveFragment.newInstance(mSceneInfo, "",""));
         mFragments.add(SceneMessagesFragment.newInstance("",""));
         mFragments.add(SceneMoreFragment.newInstance("",""));
-        FragmentTransaction ft= this.getSupportFragmentManager()
-                .beginTransaction();
-        ft.add(R.id.content,mFragments.get(2),"2").hide(mFragments.get(2))
-                .add(R.id.content,mFragments.get(1),"1").hide(mFragments.get(1))
-                .add(R.id.content,mFragments.get(0),"0").hide(mFragments.get(0));
-        ft.show(mFragments.get(0));
-        ft.commit();
         mCurrentFragment=mFragments.get(0);
     }
     private void initBottomNavigationBar() {
@@ -73,6 +97,7 @@ public final  static  String SCENE_NAME="sceneName";
 
             @Override
             public void onTabUnselected(int position) {
+
             }
 
             @Override
@@ -83,21 +108,6 @@ public final  static  String SCENE_NAME="sceneName";
     }
     private int mLastSelectPosition;
     private  void  selectContentView(int position) {
-        if (position >= 0 && mFragments != null && mFragments.size() > position) {
-            FragmentTransaction ft= this.getSupportFragmentManager()
-                    .beginTransaction();
-            if(mLastSelectPosition>position)
-            {
-                ft.setCustomAnimations(R.anim.slide_in_left_scene_snapshot, R.anim.slide_out_right_scene_snapshot);
-            }
-            else
-            {
-                ft.setCustomAnimations(R.anim.slide_in_right_scene_snapshot, R.anim.slide_out_left_scene_snapshot);
-            }
-            ft.hide(mCurrentFragment).show(mFragments.get(position))
-                    .commit();
-            mCurrentFragment=mFragments.get(position);
-
-        }
+        mViewPager.setCurrentItem(position);
     }
 }
