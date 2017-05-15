@@ -9,9 +9,11 @@
     tools:context="com.calenstudio.scenelink.view.scene.SceneActivity"
     tools:showIn="@layout/activity_scene">
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_live_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

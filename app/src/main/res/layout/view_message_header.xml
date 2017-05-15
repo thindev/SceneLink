@@ -17,31 +17,39 @@
         app:srcCompat="@drawable/cc"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="17dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="2dp"
-        android:text="fff"
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="6dp"
+        android:text="小明"
         android:textAlignment="gravity"
         android:textColor="@color/titleColor_group"
         android:textSize="14sp"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="18dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginRight="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="2dp"
-        android:text="fff"
+        android:text="现场"
         android:textSize="12sp"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="2dp"
+        android:text="2016-04-24"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
 </android.support.constraint.ConstraintLayout>

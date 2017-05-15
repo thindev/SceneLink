@@ -4,7 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,11 @@ import android.view.ViewGroup;
 
 import com.calenstudio.scenelink.R;
 import com.calenstudio.scenelink.bean.SceneInfo;
+import com.calenstudio.scenelink.model.LiveMessageManager;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,12 +33,16 @@ public class SceneLiveFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    LiveMessageManager mLiveMessageManager;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private  SceneInfo mSceneInfo;
-
+    Unbinder mUnbinder;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.rv_live_messages)
+    RecyclerView mRecyclerView;
     private OnFragmentInteractionListener mListener;
 
     public SceneLiveFragment() {
@@ -54,6 +65,7 @@ public class SceneLiveFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         fragment.mSceneInfo=sceneInfo;
+        fragment.mLiveMessageManager=new LiveMessageManager(fragment.getContext(),sceneInfo);
         return fragment;
     }
 
@@ -71,12 +83,29 @@ public class SceneLiveFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_scene_live, container, false);
+        mUnbinder= ButterKnife.bind(this,view);
         Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar);
         toolbar.setTitle(mSceneInfo.getName());
         AppCompatActivity activity=(AppCompatActivity)getActivity();
         activity.setSupportActionBar(toolbar);
        // activity.getSupportActionBar().setHomeButtonEnabled(true);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mRecyclerView.setAdapter(new RecyclerView.Adapter() {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return 0;
+            }
+        });
         return view;
     }
 
@@ -99,6 +128,15 @@ public class SceneLiveFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(mUnbinder!=null)
+        {
+            mUnbinder.unbind();
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -112,4 +150,6 @@ public class SceneLiveFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
     }
+
+
 }
