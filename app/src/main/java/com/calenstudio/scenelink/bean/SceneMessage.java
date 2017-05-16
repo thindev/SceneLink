@@ -13,6 +13,12 @@ public class SceneMessage {
     private  String mId;
     private String mTitle;
 
+    public int getMessageType() {
+        return mMessageType;
+    }
+
+    protected int mMessageType;
+
     public String getId() {
         return mId;
     }
