@@ -8,19 +8,26 @@
               android:orientation="vertical"
               tools:context="com.calenstudio.scenelink.view.MainActivity">
         />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/toolBarBackground"
+        android:minHeight="48dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        />
+    <include layout="@layout/view_horizontal_divide_line"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_scene"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
     </android.support.v4.view.ViewPager>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line_size"
-        android:background="@color/splitLineColor"
-        />
+
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

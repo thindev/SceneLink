@@ -17,5 +17,5 @@
         android:id="@+id/options_item_add"
         android:icon="@drawable/menu_add"
         android:title="@string/tooltip_add_scene"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 </menu>

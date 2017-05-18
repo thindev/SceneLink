@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:divider="@drawable/divider_line_for_images_horizontal"
         android:showDividers="middle"
-        android:layout_height="84dp"
+        android:layout_height="98dp"
         >
         <ImageView
             android:id="@+id/image_scene"

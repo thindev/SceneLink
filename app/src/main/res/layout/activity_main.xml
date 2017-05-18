@@ -9,11 +9,7 @@
     tools:context="com.calenstudio.scenelink.view.MainActivity">
 <include layout="@layout/toolbar_main"
     />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line_size"
-        android:background="@color/splitLineColor"
-        />
+    <include layout="@layout/view_horizontal_divide_line"/>
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -21,11 +17,7 @@
         android:layout_weight="1">
 
     </FrameLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_line_size"
-    android:background="@color/splitLineColor"
-    />
+<include layout="@layout/view_horizontal_divide_line"/>
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"

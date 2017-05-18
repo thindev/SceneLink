@@ -184,10 +184,9 @@ public class RecommendFragment extends Fragment {
                         verticalListViewHolder.resetViews();
                         verticalListViewHolder.setRecommendedGroup(group);
                     }
-
                     break;
                 case RecommendedScenesManager.LAYOUT_TYPE_TILE:
-                    view=  new View(getContext());
+                    view=  mInflater.inflate(R.layout.list_item_scenes_grid,viewGroup,false);
                     break;
                 case RecommendedScenesManager.LAYOUT_TYPE_HORIZONTAL_LIST:
                     view= new View(getContext());

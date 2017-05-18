@@ -97,7 +97,7 @@ public class RecommendedScenesManager {
         rg=new RecommendedGroup();
         rg.setGroupId("0");
         rg.setGroupName("猜你喜欢");
-        rg.setLayoutType(9);
+        rg.setLayoutType(LAYOUT_TYPE_TILE);
         mRecommendedGroupList.add(rg);
         rg=new RecommendedGroup();
         rg.setGroupId("0");

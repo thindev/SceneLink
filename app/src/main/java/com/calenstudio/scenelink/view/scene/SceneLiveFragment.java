@@ -84,12 +84,7 @@ public class SceneLiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_scene_live, container, false);
         mUnbinder= ButterKnife.bind(this,view);
-        Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar);
-        toolbar.setTitle(mSceneInfo.getName());
-        AppCompatActivity activity=(AppCompatActivity)getActivity();
-        activity.setSupportActionBar(toolbar);
-       // activity.getSupportActionBar().setHomeButtonEnabled(true);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mRecyclerView.setAdapter(new RecyclerView.Adapter() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

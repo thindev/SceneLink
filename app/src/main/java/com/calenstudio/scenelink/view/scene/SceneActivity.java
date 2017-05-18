@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -42,6 +43,10 @@ public final  static  String SCENE_NAME="sceneName";
         mSceneInfo=new SceneInfo();
         mSceneInfo.setName(intent.getStringExtra(SCENE_NAME));
         mSceneInfo.setId(intent.getStringExtra(SCENE_ID));
+        Toolbar toolbar=(Toolbar)this.findViewById(R.id.toolbar);
+        toolbar.setTitle(mSceneInfo.getName());
+        this.setSupportActionBar(toolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initBottomNavigationBar();
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
