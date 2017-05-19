@@ -1,10 +1,12 @@
 package com.calenstudio.scenelink.view.mainpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,9 @@ import com.calenstudio.scenelink.bean.RecommendedGroup;
 import com.calenstudio.scenelink.bean.SceneCategory;
 import com.calenstudio.scenelink.bean.SceneInfo;
 import com.calenstudio.scenelink.model.RecommendedScenesManager;
+import com.calenstudio.scenelink.view.scene.SceneActivity;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -148,7 +152,7 @@ public class RecommendFragment extends Fragment {
             {
                 case RecommendedScenesManager.LAYOUT_TYPE_BANNER:
                     BannerScenesViewHolder bannerScenesViewHolder=null;
-                    if(view!=null&&view.getTag()!=null)
+                    if(view!=null&&view.getTag()!=null&&view.getTag() instanceof BannerScenesViewHolder)
                     {
                         bannerScenesViewHolder=(BannerScenesViewHolder) view.getTag();
                     }
@@ -168,7 +172,7 @@ public class RecommendFragment extends Fragment {
                         break;
                 case RecommendedScenesManager.LAYOUT_TYPE_VERBICAL_LIST:
                     VerticalListViewHolder verticalListViewHolder=null;
-                    if(view!=null&&view.getTag()!=null)
+                    if(view!=null&&view.getTag()!=null&&view.getTag() instanceof VerticalListViewHolder)
                     {
                         verticalListViewHolder=(VerticalListViewHolder) view.getTag();
                     }
@@ -186,7 +190,23 @@ public class RecommendFragment extends Fragment {
                     }
                     break;
                 case RecommendedScenesManager.LAYOUT_TYPE_TILE:
-                    view=  mInflater.inflate(R.layout.list_item_scenes_grid,viewGroup,false);
+                    TiledViewHolder tiledViewHolder=null;
+                    if(view!=null&&view.getTag()!=null&&view.getTag() instanceof TiledViewHolder)
+                    {
+                        tiledViewHolder=(TiledViewHolder) view.getTag();
+                    }
+                    if(tiledViewHolder==null)
+                    {
+                        view=  mInflater.inflate(R.layout.list_item_scenes_tile,viewGroup,false);
+                        tiledViewHolder=new TiledViewHolder(getContext(),view);
+                        view.setTag(tiledViewHolder);
+                        tiledViewHolder.setRecommendedGroup(group);
+                    }
+                    else if(tiledViewHolder.getRecommendedGroup()!=group)
+                    {
+                        tiledViewHolder.resetViews();
+                        tiledViewHolder.setRecommendedGroup(group);
+                    }
                     break;
                 case RecommendedScenesManager.LAYOUT_TYPE_HORIZONTAL_LIST:
                     view= new View(getContext());
@@ -204,6 +224,10 @@ public class RecommendFragment extends Fragment {
         private int mLayoutType;
         protected Context mContext;
         protected RecommendedGroup mRecommendedGroup;
+        protected TextView mtv_title;
+        protected Button mButton_more;
+        protected Button mButton_refresh;
+
         public ViewHolderBase(Context cxt)
         {
             mContext=cxt;
@@ -228,7 +252,17 @@ public class RecommendFragment extends Fragment {
 
         public BannerScenesViewHolder(Context cxt,Banner banner) {
             super(cxt);
+            mContext=cxt;
             mBanner=banner;
+            mBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    Intent intent= new Intent(mContext, SceneActivity.class);
+                    intent.putExtra(SceneActivity.SCENE_ID,mRecommendedGroup.getSceneInfos().get(position).getId());
+                    intent.putExtra(SceneActivity.SCENE_NAME,mRecommendedGroup.getSceneInfos().get(position).getName());
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void setRecommendedGroup(RecommendedGroup recommendedGroup) {
@@ -256,13 +290,14 @@ public class RecommendFragment extends Fragment {
     }
     private  static class VerticalListViewHolder extends ViewHolderBase {
         private LinearLayout mLayout;
-        private TextView mtv_title;
-        private Button mButton_more;
+
         public VerticalListViewHolder(Context cxt,@NonNull View view) {
             super(cxt);
+            mContext=cxt;
             mLayout=(LinearLayout) view.findViewById(R.id.verticalList_scenes) ;
             mtv_title=(TextView)view.findViewById(R.id.tv_sceneGrupTitle);
             mButton_more=(Button)view.findViewById(R.id.button_more);
+
         }
 
         @Override
@@ -285,7 +320,7 @@ public class RecommendFragment extends Fragment {
         }
         private void creatViewList(List<SceneInfo> scenes)
         {
-            for (SceneInfo si:scenes) {
+            for (final SceneInfo si:scenes) {
 
                 View view=null;
                 if(si.hasMultiThumbNail)
@@ -305,6 +340,15 @@ public class RecommendFragment extends Fragment {
                 startTime.setText(Util.formatDate(si.getBeginTime(),"MM月dd日 HH:mm"));
                 address.setText(si.getLocation().getAddress());
                 img.setImageResource(si.getImg());
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent= new Intent(mContext, SceneActivity.class);
+                        intent.putExtra(SceneActivity.SCENE_ID,si.getId());
+                        intent.putExtra(SceneActivity.SCENE_NAME,si.getName());
+                        mContext.startActivity(intent);
+                    }
+                });
             }
         }
 
@@ -326,18 +370,42 @@ public class RecommendFragment extends Fragment {
         }
     }
     private  static class TiledViewHolder extends ViewHolderBase {
-        public TiledViewHolder(Context cxt) {
+        protected GridLayout mLayout;
+        public TiledViewHolder(Context cxt,@NonNull View view) {
             super(cxt);
+            mLayout=(GridLayout) view.findViewById(R.id.gridLayout_scenes) ;
+            mtv_title=(TextView)view.findViewById(R.id.tv_sceneGrupTitle);
+            mButton_more=(Button)view.findViewById(R.id.button_more);
+            mButton_refresh=(Button)view.findViewById(R.id.button_refresh);
         }
-
-
 
         @Override
         public void resetViews() {
-
+            mLayout.removeAllViews();
+            mtv_title.setText("");
+            mButton_more.setOnClickListener(null);
+            mButton_refresh.setOnClickListener(null);
         }
         @Override
         public void setRecommendedGroup(RecommendedGroup recommendedGroup) {
+            super.setRecommendedGroup(recommendedGroup);
+            creatViewList(recommendedGroup.getSceneInfos());
+            mtv_title.setText(recommendedGroup.getGroupName());
+            mButton_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            mButton_refresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
+        private void creatViewList(List<SceneInfo> scenes)
+        {
 
         }
     }

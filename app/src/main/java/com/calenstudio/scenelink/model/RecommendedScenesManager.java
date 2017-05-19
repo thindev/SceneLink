@@ -95,14 +95,14 @@ public class RecommendedScenesManager {
         rg.setLayoutType(LAYOUT_TYPE_VERBICAL_LIST);
         mRecommendedGroupList.add(rg);
         rg=new RecommendedGroup();
-        rg.setGroupId("0");
-        rg.setGroupName("猜你喜欢");
+        rg.setGroupId("2");
+        rg.setGroupName("周边场景");
         rg.setLayoutType(LAYOUT_TYPE_TILE);
         mRecommendedGroupList.add(rg);
         rg=new RecommendedGroup();
-        rg.setGroupId("0");
-        rg.setGroupName("9");
-        rg.setLayoutType(9);
+        rg.setGroupId("3");
+        rg.setGroupName("在线直播");
+        rg.setLayoutType(LAYOUT_TYPE_TILE);
         mRecommendedGroupList.add(rg);
     }
     public  RecommendedScenesManager()

@@ -16,6 +16,7 @@
             android:layout_marginBottom="12dp"
             android:layout_gravity="center_vertical"/>
         <Button
+            android:id="@+id/button_refresh"
             android:layout_width="68dp"
             android:layout_height="match_parent"
             android:background="#fff"

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.calenstudio.scenelink.view.scene.SceneActivity">
+    tools:context="com.calenstudio.scenelink.view.scene.SceneActivity"
+     >
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -18,7 +26,8 @@
             android:id="@+id/rv_live_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#eeeeee">
+
+            >
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <include layout="@layout/view_horizontal_divide_line"/>
@@ -54,3 +63,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</FrameLayout>

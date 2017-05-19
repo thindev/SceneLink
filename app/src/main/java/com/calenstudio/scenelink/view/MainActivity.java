@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity
     private  void  initFragments()
     {
         mFragments=new ArrayList<>();
-        mFragments.add(LinkFragment.newInstance("",""));
         mFragments.add(DiscoverFragment.newInstance("",""));
         mFragments.add(NearbyFragment.newInstance("",""));
-        mFragments.add(NearbyFragment.newInstance("",""));
+        mFragments.add(LinkFragment.newInstance("",""));
+        mFragments.add(MyFragment.newInstance("",""));
         FragmentTransaction ft= this.getSupportFragmentManager()
                 .beginTransaction();
         ft.add(R.id.content, mFragments.get(3),"3").hide(mFragments.get(3))
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity
                 .add(R.id.content,mFragments.get(0),"0").hide(mFragments.get(0));
         ft.show(mFragments.get(0));
         ft.commit();
+        mFragments.get(0).setUserVisibleHint(true);
         mCurrentFragment=mFragments.get(0);
     }
     private void initBottomNavigationBar() {
@@ -117,9 +118,9 @@ public class MainActivity extends AppCompatActivity
         }
         mBottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.bnv_link, R.string.title_link))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_find, R.string.title_discover))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_nearby, R.string.title_nearby))
+                .addItem(new BottomNavigationItem(R.drawable.bnv_link, R.string.title_link))
                 .addItem(new BottomNavigationItem(R.drawable.bnv_my, R.string.title_my))
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
@@ -142,13 +143,13 @@ public class MainActivity extends AppCompatActivity
     }
     private void setActionBarTitle(int position) {
         switch (position) {
-            case 0:
+            case 2:
                 mActionBar.setTitle(R.string.title_link);
                 break;
-            case 1:
+            case 0:
                 mActionBar.setTitle(R.string.title_discover);
                 break;
-            case 2:
+            case 1:
                 mActionBar.setTitle(R.string.title_nearby);
                 break;
             case 3:
@@ -160,20 +161,18 @@ public class MainActivity extends AppCompatActivity
     }
     private  void  selectContentView(int position) {
         if (position >= 0 && mFragments != null && mFragments.size() > position) {
-            FragmentTransaction ft= this.getSupportFragmentManager()
+            FragmentTransaction ft = this.getSupportFragmentManager()
                     .beginTransaction();
-            if(mLastSelectPosition>position)
-            {
+            if (mLastSelectPosition > position) {
                 ft.setCustomAnimations(R.anim.slide_in_left_scene_snapshot, R.anim.slide_out_right_scene_snapshot);
+            } else {
+                ft.setCustomAnimations(R.anim.slide_in_right_scene_snapshot, R.anim.slide_out_left_scene_snapshot);
             }
-            else
-            {
-                 ft.setCustomAnimations(R.anim.slide_in_right_scene_snapshot, R.anim.slide_out_left_scene_snapshot);
-            }
-                    ft.hide(mCurrentFragment).show(mFragments.get(position))
+            mCurrentFragment.setUserVisibleHint(false);
+            ft.hide(mCurrentFragment).show(mFragments.get(position))
                     .commit();
-                    mCurrentFragment=mFragments.get(position);
-
+            mCurrentFragment = mFragments.get(position);
+            mCurrentFragment.setUserVisibleHint(true);
         }
     }
 

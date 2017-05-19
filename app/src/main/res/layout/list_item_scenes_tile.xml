@@ -12,7 +12,7 @@
     <include layout="@layout/list_item_scenes_titlebar"/>
     <include layout="@layout/view_horizontal_divide_line"/>
     <android.support.v7.widget.GridLayout
-        android:id="@+id/verticalList_scenes"
+        android:id="@+id/gridLayout_scenes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:orientation="horizontal"
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content">
 <com.makeramen.roundedimageview.RoundedImageView
     android:layout_width="match_parent"
-    app:riv_corner_radius="6dp"
-    android:layout_height="160dp"
+    app:riv_corner_radius="4dp"
+    android:layout_height="120dp"
     android:src="@drawable/aa" android:scaleType="centerCrop"/>
             <TextView
                 android:layout_marginTop="8dp"
@@ -46,9 +46,9 @@
             app:layout_columnWeight="1"
             android:layout_height="wrap_content">
             <com.makeramen.roundedimageview.RoundedImageView
-                app:riv_corner_radius="6dp"
+                app:riv_corner_radius="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:src="@drawable/bb" android:scaleType="centerCrop"/>
             <TextView
                 android:layout_marginTop="8dp"
@@ -66,9 +66,9 @@
             app:layout_columnWeight="1"
             android:layout_height="wrap_content">
             <com.makeramen.roundedimageview.RoundedImageView
-                app:riv_corner_radius="6dp"
+                app:riv_corner_radius="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:src="@drawable/cc" android:scaleType="centerCrop"/>
             <TextView
                 android:layout_marginTop="8dp"
@@ -86,9 +86,9 @@
             app:layout_columnWeight="1"
             android:layout_height="wrap_content">
             <com.makeramen.roundedimageview.RoundedImageView
-                app:riv_corner_radius="6dp"
+                app:riv_corner_radius="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:src="@drawable/aa" android:scaleType="centerCrop"/>
             <TextView
                 android:layout_marginTop="8dp"
@@ -102,7 +102,7 @@
         </LinearLayout>
 
     </android.support.v7.widget.GridLayout>
-
+<include layout="@layout/view_horizontal_divide_line"/>
     <Button
         android:id="@+id/button_more"
         android:layout_width="match_parent"

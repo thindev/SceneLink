@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_margin="10dp"
+              android:layout_width="0dp"
+              android:orientation="vertical"
+              app:layout_columnWeight="1"
+              android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            app:riv_corner_radius="6dp"
+            android:layout_height="160dp"
+            android:src="@drawable/aa" android:scaleType="centerCrop"/>
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="#000"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:text="中化人民国工地人民国工地历"/>
+</LinearLayout>
